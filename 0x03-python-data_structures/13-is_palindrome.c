@@ -1,6 +1,3 @@
-/*
- * File: 13-is_palindrome.c
- */
 
 #include "lists.h"
 
@@ -49,4 +46,28 @@ int is_palindrome(listint_t **head)
 	{
 		size++;
 		tmp = tmp->next;
+	}
 
+	tmp = *head;
+	for (i = 0; i < (size / 2) - 1; i++)
+		tmp = tmp->next;
+
+	if ((size % 2) == 0 && tmp->n != tmp->next->n)
+		return (0);
+
+	tmp = tmp->next->next;
+	rev = reverse_listint(&tmp);
+	mid = rev;
+
+	tmp = *head;
+	while (rev)
+	{
+		if (tmp->n != rev->n)
+			return (0);
+		tmp = tmp->next;
+		rev = rev->next;
+	}
+	reverse_listint(&mid);
+
+	return (1);
+}
